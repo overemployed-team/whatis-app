@@ -9,7 +9,7 @@ const Footer = ()=>{
         rel="noopener noreferrer"
       >
       <p>
-        Powered by <span className='text-orange-600'>Overemployed</span>
+        Created by <span className='text-orange-600'>Overemployed</span>
       </p>
       {/* <span className={styles.logo}>
         <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
