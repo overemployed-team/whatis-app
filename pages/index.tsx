@@ -4,32 +4,14 @@ import Image from 'next/image'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 
-const Footer = ()=>{
-  return <footer className={styles.footer}>
-    <a
-      href="https://lablab.ai/event/cohere-ai-hackathon-generate/team/Overemployed"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-    <p>
-      Powered by <span className='text-orange-600'>Overemployed</span>
-    </p>
-    {/* <span className={styles.logo}>
-      <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-    </span> */}
-  </a>
-</footer>
-}
+import Footer from '../components/footer'
+import SearchModeComponent from '../components/SearchModeComponent'
+import GameModeComponent from '../components/GameModeComponent'
 
-const appMode = ["Ask Mode", "Game Mode"]
+const appMode = ["Search Mode", "Game Mode"]
 
 const Home: NextPage = () => {
   const [mode, setMode] = useState(appMode[0])
-  const [displayAnswer, setDisplayAnswer] = useState(false)
-
-  const onClickFindOut = () =>{
-    setDisplayAnswer(true)
-  }
 
   const toggleMode = () =>{
     if (mode === appMode[0]){
@@ -60,20 +42,13 @@ const Home: NextPage = () => {
                       <button className='neu-up w-32 px-4 py-1 bg-slate-400 hover:scale-95' onClick={toggleMode}>{mode}</button>
                   </div>
                 </div>
-                
-                <div>
-              
-                  <textarea className='text-lg  neu-down w-96 my-5 rounded-lg p-6' placeholder="describe what you want to know..."></textarea>
-                </div>
-                
-          
-                <button className='mx-auto w-96 bg-slate-600  text-white text-2xl px-5 py-2 rounded-xl'
-                  onClick={onClickFindOut}
-                >
-                  Find out
-                </button>
-                <div className='h-20 mt-10'>
-                  { displayAnswer ? <p className='text-lg'>Is it {"_____"} ?</p>: <></>}
+                <div className='h-96 py-5'>
+                {
+                  mode === appMode[0] ? 
+                  <SearchModeComponent/>
+                  :
+                  <GameModeComponent/>
+                }
                 </div>
             </div>
           </div>
