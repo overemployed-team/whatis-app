@@ -121,7 +121,7 @@ const GameModeComponent = () =>{
                 </div>
             :
                 <div>
-                    <p>AI's turn!</p>
+                    <p>AI turn! (not implemented yet)</p>
                 </div>
         }
         <div>
