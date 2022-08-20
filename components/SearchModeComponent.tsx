@@ -6,16 +6,25 @@ const SearchModeComponent = () => {
 
     const [description, setDesccription] = useState("")
 
+    const [question, setQuestion] = useState("")
     const [answer, setAnswer] = useState("")
+
+    const [displayQuestion, setDisplayQuestion] = useState(false)
     const [displayAnswer, setDisplayAnswer] = useState(false)
 
     const onClickFindOut = async () =>{
+
+        setQuestion(description)
+        setDisplayQuestion(true)
+
+        setDesccription("")
         const requestJSON = {
             "question": description,
             "topic": "movie"
         }
-        const response = await axios.post(appConfig.SERVER_URL, requestJSON, appConfig.REQUEST_HEADER )
-        console.log(response)
+        const response = await axios.post(appConfig.SERVER_URL + "/what", requestJSON )
+        const answer = response.data[0].answer
+        setAnswer(answer)
         setDisplayAnswer(true)
     }
 
@@ -36,10 +45,17 @@ const SearchModeComponent = () => {
             onClick={onClickFindOut} disabled={description.length === 0}>
             Find out
         </button>
-        <div className='h-20 mt-10'>
+        <div className='min-h-10 mt-10'>
             {
-            displayAnswer ? <p className='text-lg'>Is it {"_____"}
-                ?</p> : <></>
+            displayQuestion ? <p className='text-lg'>"{question}"</p> : <></>
+            }
+        </div>
+
+        <div className='h-20 mt-4'>
+            {
+            displayAnswer ? 
+                <p className='text-md'>Is it "{answer}"?</p> : 
+                <></>
             }
         </div>
     </>
