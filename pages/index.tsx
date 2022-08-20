@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.css'
 const Footer = ()=>{
   return <footer className={styles.footer}>
     <a
-      href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+      href="https://lablab.ai/event/cohere-ai-hackathon-generate/team/Overemployed"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -22,10 +22,10 @@ const Footer = ()=>{
 }
 
 const Home: NextPage = () => {
-  const [clicked, setClicked] = useState(false)
+  const [displayAnswer, setDisplayAnswer] = useState(false)
 
   const onClickFindOut = () =>{
-    setClicked(true)
+    setDisplayAnswer(true)
   }
 
   return (
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
                   Find out
                 </button>
                 <div className='h-20 mt-10'>
-                  { clicked ? <p className='text-lg'>Is it {"_____"} ?</p>: <></>}
+                  { displayAnswer ? <p className='text-lg'>Is it {"_____"} ?</p>: <></>}
                 </div>
             </div>
           </div>
