@@ -34,14 +34,14 @@ const SearchModeComponent = () => {
     
     return <>
         <div>
-            <textarea className='text-lg  neu-down w-96 my-5 rounded-lg p-6' 
+            <textarea className='text-lg  neu-down w-full mx-auto sm:w-96 my-5 rounded-lg p-6' 
                         placeholder="describe what you want to know..."
                         value={description} 
                         onChange={onChangeTextField}>    
             </textarea>
         </div>
 
-        <button className='mx-auto w-96 bg-slate-600 disabled:bg-slate-400  text-white text-2xl px-5 py-2 rounded-xl'
+        <button className='mx-auto w-full sm:w-96 bg-slate-600 disabled:bg-slate-400  text-white text-2xl px-5 py-2 rounded-xl'
             onClick={onClickFindOut} disabled={description.length === 0}>
             Find out
         </button>
