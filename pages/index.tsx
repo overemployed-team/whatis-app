@@ -21,11 +21,22 @@ const Footer = ()=>{
 </footer>
 }
 
+const appMode = ["Ask Mode", "Game Mode"]
+
 const Home: NextPage = () => {
+  const [mode, setMode] = useState(appMode[0])
   const [displayAnswer, setDisplayAnswer] = useState(false)
 
   const onClickFindOut = () =>{
     setDisplayAnswer(true)
+  }
+
+  const toggleMode = () =>{
+    if (mode === appMode[0]){
+      setMode(appMode[1])
+    }else{
+      setMode(appMode[0])
+    }
   }
 
   return (
@@ -40,14 +51,23 @@ const Home: NextPage = () => {
           <div className='container '>
             
             <div className="flex flex-col text-center pb-40">
+                <div className='flex flex-col'>
+                  <div className='flex flex-row y-10 mx-auto align-middle my-2'>
+                          <p className='self-center text-4xl pr-3'>What is it</p>
+                          <Image className='shadow-2xl' src="/android-chrome-192x192.png" width={64} height={64}/>
+                  </div>
+                  <div className='text-center mt-2 mx-10 max-w-96'>
+                      <button className='neu-up w-32 px-4 py-1 bg-slate-400 hover:scale-95' onClick={toggleMode}>{mode}</button>
+                  </div>
+                </div>
+                
                 <div>
-                <Image className='shadow-2xl' src="/favicon/android-chrome-192x192.png" width={64} height={64}/>
-                 <p className='text-5xl  mt-10'>What is it?</p>
-                  <textarea className='text-lg bg-slate-100 w-96 my-5 rounded-lg p-2' placeholder="describe what you wanna know..."></textarea>
+              
+                  <textarea className='text-lg  neu-down w-96 my-5 rounded-lg p-6' placeholder="describe what you want to know..."></textarea>
                 </div>
                 
           
-                <button className='mx-auto w-96 bg-orange-500 text-white text-2xl px-5 py-2 rounded-xl'
+                <button className='mx-auto w-96 bg-slate-600  text-white text-2xl px-5 py-2 rounded-xl'
                   onClick={onClickFindOut}
                 >
                   Find out

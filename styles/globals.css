@@ -20,10 +20,25 @@ a {
   box-sizing: border-box;
 }
 
+.neu-down {
+  border-radius: 5px;
+  background: #e5e7eb;
+  box-shadow: inset 8px 8px 16px #d5d7d9,
+    inset -8px -8px 16px #ffffff;
+}
+
+.neu-up {
+  border-radius: 18px;
+  background: #e5e7eb;
+  box-shadow: 8px 8px 16px #d5d7d9,
+    -8px -8px 16px #ffffff;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
