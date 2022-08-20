@@ -47,14 +47,14 @@ const SearchModeComponent = () => {
         </button>
         <div className='min-h-10 mt-10'>
             {
-            displayQuestion ? <p className='text-lg'>"{question}"</p> : <></>
+            displayQuestion ? <p className='text-lg'>&quot;{question}&quot;</p> : <></>
             }
         </div>
 
         <div className='h-20 mt-4'>
             {
             displayAnswer ? 
-                <p className='text-md'>Is it "{answer}"?</p> : 
+                <p className='text-md'>Is it &quot;{answer}&quot;?</p> : 
                 <></>
             }
         </div>
