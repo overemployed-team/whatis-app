@@ -40,7 +40,7 @@ const Home: NextPage = () => {
           <div className='container '>
             
             <div className="flex flex-col text-center pb-40">
-                <div className='flex flex-col'>
+                <div className='flex flex-col my-4'>
                   <div className='flex flex-row y-10 mx-auto align-middle mt-2'>
                           <p className='self-center text-4xl pr-3'>What is it</p>
                           <Image className='shadow-2xl' src="/android-chrome-192x192.png" width={64} height={64}/>
