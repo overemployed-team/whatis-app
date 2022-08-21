@@ -44,7 +44,7 @@ const SearchModeComponent = () => {
 
     return <>
         <div>
-            <textarea className='text-lg  neu-down w-full mx-auto sm:w-96 my-5 rounded-lg p-6' placeholder="Describe the movie you want to find..."
+            <textarea className='text-lg  neu-down w-full mx-auto sm:w-96 my-5 rounded-lg p-6' placeholder="Describe what you thinking of..."
                 value={description}
                 onChange={onChangeTextField}></textarea>
         </div>
