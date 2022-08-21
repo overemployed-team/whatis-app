@@ -142,8 +142,8 @@ const GameModeComponent = () =>{
                     <p>Let me guess....</p>
                 :
                     <div id="on-answered" className="flex flex-col">
-                        <p className="text-xl">Your description: &quot;{displayQuestion}&quot;</p>
-                        <p className="text-lg">AI guessed: &quot;{currentGuess}&quot;</p>
+                        <p className="text-xl">Your description: {displayQuestion}</p>
+                        <p className="text-lg">AI guessed: {currentGuess}</p>
                         
                         <div className="flex flex-row mx-auto my-3">
                             <button className="w-20 bg-green-400 text-xl mx-4 rounded-lg px-2 py-2"
@@ -181,7 +181,7 @@ const GameModeComponent = () =>{
                                     :
                                     <p className="text-xl text-red-700 font-bold">You are wrong 😰</p>
                             }
-                            <p>The movie is <span className="font-bold text-lg">&quot;{currentAnswer}&quot;</span>;.</p>
+                            <p>The movie is <span className="font-bold text-lg">{currentAnswer}</span>;.</p>
                             <button className='mx-auto w-full sm:w-60 bg-orange-600 disabled:bg-slate-400  text-white text-lg px-2 py-1 my-4 rounded-xl'
                                 onClick={switchPlayer}>
                                 Continue
