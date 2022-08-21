@@ -45,9 +45,9 @@ const Home: NextPage = () => {
                           <p className='self-center text-4xl pr-3'>What is it</p>
                           <Image className='shadow-2xl' src="/android-chrome-192x192.png" width={64} height={64}/>
                   </div>
-                  <p className='text-sm text-slate-600'>(Movie edition)</p>
+                  <p className='text-sm text-yellow-600'>(Movie edition)</p>
                   
-                  <div className='text-center mt-2 mx-10 max-w-96'>
+                  <div className='text-center mt-6 mx-10 max-w-96'>
                       <button className='neu-up w-32 px-4 py-1 bg-slate-400 hover:scale-95' onClick={toggleMode}>{mode}</button>
                   </div>
                 </div>
