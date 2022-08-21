@@ -188,7 +188,7 @@ const GameModeComponent = () =>{
                             </button>
                         </div>
                     : <>
-                        <p>What is this movie, &#34;{currentQuestion}&#34;?</p>
+                        <p>What is this movie, {currentQuestion}?</p>
                         <input type="text" className='text-lg  neu-down w-full mx-auto sm:w-96 my-5 rounded-lg p-2'
                             placeholder="Guess the movie name"
                             value={currentGuess}
