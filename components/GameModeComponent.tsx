@@ -62,7 +62,8 @@ const GameModeComponent = () =>{
             const isCorrect = response.data[0].is_same
             setDidUserGuessRight(isCorrect)
             if (isCorrect){
-                setUserScore(userScore+1)
+                // setUserScore(userScore+1)
+                setAiScore(aiScore+1)
             }
             setdisplayIfUserGuessedRight(true)
         }
@@ -114,7 +115,8 @@ const GameModeComponent = () =>{
 
     const jugdeAI = (isCorrect: boolean) => {
         if (isCorrect){
-            setAiScore(aiScore+1)
+            // setAiScore(aiScore+1)
+            setUserScore(userScore+1)
         }
         switchPlayer()
     }
@@ -124,6 +126,8 @@ const GameModeComponent = () =>{
         { askUser ? 
             <div id="ask-user" className="flex flex-col">
                 <p className="text-sm text-pink-600">Your turn, hint the movie for the opponent to guess</p>
+                <p className="text-xs text-slate-400">If AI guess right, you receive the score.</p>
+
                 <textarea className='text-lg neu-down w-full mx-auto sm:w-96 my-5 rounded-lg p-6' placeholder="describe what the movie you have in mind"
                             value={currentQuestion}
                             onChange={onChangeQuestionField}></textarea>
