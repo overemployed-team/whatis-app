@@ -38,7 +38,7 @@ const SearchModeComponent = () => {
 
     const feedbackComponent = () => {
         return <>
-            <p className='text-md'>Is it &;{answer}&;?</p>
+            <p className='text-md'>Is it {answer}?</p>
         </>
     }
 
@@ -58,7 +58,7 @@ const SearchModeComponent = () => {
         </button>
         <div className='min-h-10 mt-10'>
             {
-            displayQuestion ? <p className='text-lg'>&;{question}&;</p> : <></>
+            displayQuestion ? <p className='text-lg'>{question}</p> : <></>
         } </div>
             {
                 onLoading ?
