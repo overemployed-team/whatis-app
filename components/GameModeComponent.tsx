@@ -209,8 +209,8 @@ const GameModeComponent = () =>{
 
     return <>
         <div id="score-bar" className="w-60 px-10 py-5 m-2 neu-up mx-auto text-left p-2">
-            <p className="text-xl">Your score:  {userScore}</p>
-            <p className="text-xl">AI score:  {aiScore}</p>
+            <p className="text-xl">Guess score:  {userScore}</p>
+            <p className="text-xl">Explanation score:  {aiScore}</p>
         </div>
 
         {
