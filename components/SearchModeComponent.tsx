@@ -54,7 +54,7 @@ const SearchModeComponent = () => {
             disabled={
                 description.length === 0
         }>
-            Guess
+            Find out
         </button>
         <div className='min-h-10 mt-10'>
             {

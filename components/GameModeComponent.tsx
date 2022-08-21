@@ -19,6 +19,7 @@ const GameModeComponent = () =>{
     const [askUser, setAskUser] = useState(true)
     const [isAIGuessed, setIsAIGuessed] = useState(false)
     const [currentQuestion, setCurrentQuestion] = useState("")
+    const [displayQuestion, setDisplayQuestion] = useState("")
     const [currentGuess, setCurrentGuess] = useState("")
     const [currentAnswer, setCurrentAnswer] = useState("")
 
@@ -30,6 +31,7 @@ const GameModeComponent = () =>{
             // user turn
             const question = currentQuestion
             setCurrentQuestion("")
+            setDisplayQuestion(question)
             setAskUser(false)
             const requestJSON = {
                 "question": question,
@@ -38,28 +40,65 @@ const GameModeComponent = () =>{
             try{
                 const response = await axios.post(appConfig.SERVER_URL + "/what", requestJSON)
                 const answer = response.data[0].answer
-                setIsAIGuessed(answer)
+                setIsAIGuessed(true)
                 setCurrentGuess(answer)
-                
             }catch(error){
                 console.error("something is wrong")
             }
         }else{
             // AI turn
+            const guessed = currentGuess
+            const answer = currentAnswer
+
+            const requestJSON = {
+                user: guessed,
+                original: answer
+            }
+            const response = await axios.post(appConfig.SERVER_URL + "/isSame", requestJSON)
+            const isCorrect = response.data[0].is_same
+            if (isCorrect){
+                setUserScore(userScore+1)
+            }
+            switchPlayer()
         }
+    }
+
+    const askQuestion = async ()=>{
+
     }
 
     const onChangeQuestionField = (e:any)=>{
         setCurrentQuestion(e.target.value)
     }
 
-    const switchPlayer= ()=>{
-        setUserTurn(!isUserTurn)
+    const onChangeGuessField = (e:any)=>{
+        setCurrentGuess(e.target.value)
+    }
+
+    const switchPlayer= async ()=>{
         if (isUserTurn){
             // User's turn
+            setIsAIGuessed(false)
+            setAskUser(true)
+            setUserTurn(false)
+
+            const response = await axios.get(appConfig.SERVER_URL + "/generate")
+            console.log(response)
+            const answer = response.data[0].title
+            const question = response.data[0].description
+
+            setCurrentQuestion(question)
+            setCurrentGuess("")
+            setCurrentAnswer(answer)
+
         }else{
             // AI's turn
-
+            setIsAIGuessed(false)
+            setAskUser(true)
+            setUserTurn(true)
+            setCurrentQuestion("")
+            setCurrentGuess("")
+            setCurrentAnswer("")
         }
     }
 
@@ -70,60 +109,82 @@ const GameModeComponent = () =>{
         switchPlayer()
     }
 
+    const userTurnDisplay = ()=>{
+        return <div className="my-10 flex flex-col">
+        { askUser ? 
+            <div id="ask-user" className="flex flex-col">
+                <p className="text-sm text-pink-600">Your turn, hint the movie for the opponent to guess</p>
+                <textarea className='text-lg neu-down w-full mx-auto sm:w-96 my-5 rounded-lg p-6' placeholder="describe what the movie you have in mind"
+                            value={currentQuestion}
+                            onChange={onChangeQuestionField}></textarea>
+
+                <button className='mx-auto w-full sm:w-96 bg-sky-400 hover:scale-95 disabled:bg-sky-200  text-white text-2xl px-5 py-2 rounded-xl'
+                            onClick={submitAnswer}
+                            disabled={
+                                currentQuestion.length < 3
+                        }>
+                        Challenge
+                </button>
+            </div>
+        : 
+            <div className="ai-answer">
+                {!isAIGuessed ? 
+                    <p>Let me guess....</p>
+                :
+                    <div id="on-answered" className="flex flex-col">
+                        <p className="text-xl">Your description: &quot;{displayQuestion}&quot;</p>
+                        <p className="text-lg">AI guessed: &quot;{currentGuess}&quot;</p>
+                        
+                        <div className="flex flex-row mx-auto my-3">
+                            <button className="w-20 bg-green-400 text-xl mx-4 rounded-lg px-2 py-2"
+                                onClick={()=>jugdeAI(true)}
+                            >
+                                Yes
+                            </button>
+
+                            <button className="w-20 bg-red-400 text-xl mx-4 rounded-lg px-2 py-2"
+                                onClick={()=>jugdeAI(false)}
+                            >
+                                No
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        </div>
+    }
+
+    const aiTurnDisplay = ()=>{
+        return <div className="my-10 flex flex-col">
+        <p>What is this movie, &#34;{currentQuestion}&#34;?</p>
+        <input type="text" className='text-lg  neu-down w-full mx-auto sm:w-96 my-5 rounded-lg p-2'
+                placeholder="Guess the movie name"
+                value={currentGuess}
+                onChange={onChangeGuessField}></input>
+        <button className='mx-auto w-full sm:w-96 bg-pink-600 disabled:bg-slate-400  text-white text-2xl px-5 py-2 rounded-xl'
+            onClick={submitAnswer}
+            disabled={
+                currentGuess.length === 0
+        }>
+            Guess
+        </button>
+    </div>
+    }
+
     return <>
         <div id="score-bar" className="w-60 px-10 py-5 m-2 neu-up mx-auto text-left p-2">
             <p className="text-xl">Your score:  {userScore}</p>
             <p className="text-xl">AI score:  {aiScore}</p>
         </div>
+
         {
             isUserTurn?
-                <div className="my-10 flex flex-col">
-                    { askUser ? 
-                    <>
-                        <p className="text-sm text-pink-600">Your turn, hint the movie for the opponent to guess</p>
-                        <textarea className='text-lg neu-down w-full mx-auto sm:w-96 my-5 rounded-lg p-6' placeholder="describe what the movie you have in mind"
-                                    value={currentQuestion}
-                                    onChange={onChangeQuestionField}></textarea>
-
-                        <button className='mx-auto w-full sm:w-96 bg-sky-400 hover:scale-95 disabled:bg-sky-200  text-white text-2xl px-5 py-2 rounded-xl'
-                                    onClick={submitAnswer}
-                                    disabled={
-                                        currentQuestion.length < 3
-                                }>
-                                Challenge
-                        </button>
-                    </>
-                    : 
-                    <>
-                    {!isAIGuessed ? 
-                        <p>Let me guess....</p>
-                    :
-                        <>
-                            <p className="text-lg">Is it &quot;{currentGuess}&quot;</p>
-                            <div className="flex flex-row mx-auto my-3">
-                                <button className="w-20 bg-green-400 text-xl mx-4 rounded-lg px-2 py-2"
-                                    onClick={()=>jugdeAI(true)}
-                                >
-                                    Yes
-                                </button>
-
-                                <button className="w-20 bg-red-400 text-xl mx-4 rounded-lg px-2 py-2"
-                                    onClick={()=>jugdeAI(false)}
-                                >
-                                    No
-                                </button>
-                            </div>
-                        </>
-                    }
-                        
-                    </>
-                    }
-                </div>
+                userTurnDisplay()
             :
-                <div>
-                    <p>AI turn! (not implemented yet)</p>
-                </div>
+                aiTurnDisplay()
         }
+
         <div>
             {
                 gameLogs.map((gameLog: GameState)=>{
